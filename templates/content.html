@@ -1,4 +1,4 @@
-{% extends "/templates/hello.html" %}
+{% extends "base.html" %}
 {% block title %}Index{% endblock %}
 {% block head %}
     {{ super() }}
@@ -11,4 +11,7 @@
     <p class="important">
       Welcome to my awesome homepage.
     </p>
+
+    <h2><a href="/hello">Яндекс.Музыка</a></h2>
 {% endblock %}
+
