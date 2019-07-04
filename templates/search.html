@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+{% block title %}Поиск пользователя{% endblock %}
+{% block content %}
+
+    <div class="container">
+        <div class="page-header">
+            <h1>Привет, {{ name | capitalize }}!</h1>
+        </div>
+
+        {% block app_content %}
+        <p>Введи логин пользователя Yandex.Музыка</p>
+            <form method="POST" action="{{ url }}">
+                {{ form.csrf_token }}
+                {{ form.name.label }} {{ form.name(size=30) }}
+                <input type="submit" value="Найти">
+            </form>
+        {% endblock %}
+
+    </div>
+{% endblock %}

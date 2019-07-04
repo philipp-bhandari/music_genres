@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Результаты{% endblock %}
+{% block page_content %}
+<div class="page-header">
+
+    <h1>Результат</h1>
+
+    <h2>Жанры</h2>
+    <ul>
+        {% for genre in genres %}
+        <li><a href="{{ genre.href }}" target="_blank">{{ genre }}</a></li>
+        {% endfor %}
+    </ul>
+
+    <h2>Исполнители</h2>
+    <ul>
+        {% for artist in artists %}
+        <li><a href="{{ artist.href }}" data-genres="{% for genre in artist.genres %}{{genre.name}},{% endfor %}"
+               target="_blank">{{ artist.name }}</a></li>
+        {% endfor %}
+    </ul>
+
+</div>
+
+
+{% endblock %}
+
+
