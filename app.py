@@ -22,13 +22,13 @@ bootstrap = Bootstrap(app)
 
 @app.route('/')
 def index():
-    return render_template('index.html', url=url_for('music'))
+    return render_template('index.html')
 
 
 @app.route('/music/')
 def music():
     form = MyForm()
-    return render_template('search.html', name='странник', form=form, url=url_for('submit'))
+    return render_template('search.html', form=form)
 
 
 @app.route('/submit', methods=('GET', 'POST'))
@@ -42,7 +42,7 @@ def submit():
 @app.route('/show/', methods=('GET', 'POST'))
 def show():
     form = MyForm()
-    return render_template('search.html', name='странник', form=form, url=url_for('submit'))
+    return render_template('search.html', form=form)
 
 
 @app.route('/show/<name>', methods=('GET', 'POST'))
@@ -53,10 +53,6 @@ def show_name(name):
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8080, debug=True)  # Опция debug включает перезагрузку сервера при изменении кода.
-
-url_for()
-
-
 
 
 

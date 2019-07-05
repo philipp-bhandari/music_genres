@@ -6,19 +6,25 @@
     <h1>Результат</h1>
 
     <h2>Жанры</h2>
-    <ul>
-        {% for genre in genres %}
-        <li><a href="{{ genre.href }}" target="_blank">{{ genre }}</a></li>
-        {% endfor %}
-    </ul>
+    <section class="genres">
+        <ul>
+            {% for genre in genres %}
+            <li><a href="{{ genre.href }}" target="_blank">{{ genre }}</a></li>
+            {% endfor %}
+        </ul>
+    </section>
 
     <h2>Исполнители</h2>
-    <ul>
-        {% for artist in artists %}
-        <li><a href="{{ artist.href }}" data-genres="{% for genre in artist.genres %}{{genre.name}},{% endfor %}"
-               target="_blank">{{ artist.name }}</a></li>
-        {% endfor %}
-    </ul>
+    <section class="artists">
+        <ul>
+            {% for artist in artists %}
+            <li><div class="artist">
+                <img src="{{ artist.avatar }}">
+                <a class="artist_name" href="{{ artist.href }}" data-genres="{% for genre in artist.genres %}{{genre.name}},{% endfor %}"
+                   target="_blank">{{ artist.name }}</a></div></li>
+            {% endfor %}
+        </ul>
+    </section>
 
 </div>
 

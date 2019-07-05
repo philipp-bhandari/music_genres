@@ -3,6 +3,7 @@ from grab import Grab
 from bs4 import BeautifulSoup
 import urllib.parse as url_parse
 from flask import abort
+from flask import url_for
 
 logger = logging.getLogger('grab')
 logger.addHandler(logging.StreamHandler())
@@ -14,10 +15,11 @@ web_url = 'https://music.yandex.ru'
 
 
 class Artist:
-    def __init__(self, name, href, genres):
+    def __init__(self, name, href, genres, avatar):
         self.name = name
         self.genres = genres
         self.href = href
+        self.avatar = avatar
 
     def __str__(self):
         artist_string = f'\nИмя исполнителя:\n\t{self.name}\nЖанры:\n'
@@ -56,7 +58,11 @@ def create_artist_list(elems):
             genre_href = '#'
             genres_list.append(Genre(genre_name, genre_href))
 
-        new_artist = Artist(name, link_href, genres_list)
+        avatar_link = artist.find('img', 'artist-pics__pic')['src']
+        if avatar_link == '/blocks/artist-pics/placeholder-artist.svg':
+            avatar_link = url_for('static', filename='images/no-image.png')
+
+        new_artist = Artist(name, link_href, genres_list, avatar_link)
         artist_list.append(new_artist)
     return artist_list
 
