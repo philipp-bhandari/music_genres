@@ -1,0 +1,19 @@
+Request headers:
+
+Request body:
+
+
+Response headers:
+HTTP/1.1 200 OK
+Date: Wed, 10 Jul 2019 12:28:00 GMT
+Content-Type: text/html; charset=utf-8
+Cache-Control: private, no-cache, no-store, must-revalidate, max-age=0
+Expires: Thu, 01 Jan 1970 00:00:00 GMT
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 1; mode=block
+Content-Security-Policy-Report-Only: default-src 'none';script-src 'self' music.yandex.ru yastatic.net 'unsafe-eval' mc.yandex.ru mc.yandex.ru yandex.ru social.yandex.ru an.yandex.ru yabs.yandex.ru awaps.yandex.ru awaps.yandex.net api-maps.yandex.ru widget.tickets.yandex.ru www.youtube.com s.ytimg.com yandex.st ads.adfox.ru ads6.adfox.ru 'nonce-yzId3LxHNVVZM4ICKxMwkw==' 'nonce-yzId3LxHNVVZM4ICKxMwkw==';style-src 'self' 'unsafe-inline' yastatic.net yandex.st banners.adfox.ru content.adfox.ru;connect-src 'self' music.yandex.ru yastatic.net mc.yandex.ru mc.yandex.ru mc.admetrica.ru *.music.yandex.ru api.passport.yandex.ru passport.yandex.ru content.adfox.ru an.yandex.ru awaps.yandex.ru awaps.yandex.net mobile.yandex.net storage.mds.yandex.net strm.yandex.ru strm.yandex.net *.strm.yandex.net ydx.iframe.tvzavr.ru wss://push.yandex.ru wss://push-sandbox.yandex.ru wss://ws-api.music.yandex.net yandex.st matchid.adfox.yandex.ru adfox.yandex.ru ads.adfox.ru ads6.adfox.ru yandex.ru static-mon.yandex.net csp.yandex.net music-browser.music.yandex.net;object-src 'self' music.yandex.ru flashservice.adobe.com www.tns-counter.ru ar.tns-counter.ru www.ivi.ru;frame-src 'self' music.yandex.ru yastatic.net trust.yandex.ru trust.yandex.ru trust-test.yandex.ru *.music.yandex.ru *.music.yandex.net sandbox.music.yandex.net passport.yandex.ru widget.tickets.yandex.ru content.adfox.ru st.yandexadexchange.net www.youtube.com media.clipyou.ru frontend.vh.yandex.ru player.vimeo.com awaps.yandex.net yandexadexchange.net *.yandexadexchange.net *.yandex.ru banners.adfox.ru;media-src 'self' music.yandex.ru yastatic.net data: strm.yandex.ru strm.yandex.net *.strm.yandex.net *.cdn.yandex.net *.storage.yandex.net storage.mds.yandex.net *.storage.mds.yandex.net blob: storage.mdst.yandex.net *.storage.mdst.yandex.net awaps.yandex.net yandex.st banners.adfox.ru content.adfox.ru;img-src 'self' music.yandex.ru yastatic.net data: mc.yandex.ru mc.yandex.ru mc.admetrica.ru *.yandex.ru *.yandex.ru *.yandex.net *.weborama.fr *.tns-counter.ru www.facebook.com vk.com www.clipyou.ru clipyou.ru ad.doubleclick.net ads.adfox.ru ads6.adfox.ru avatars-fast.yandex.net favicon.yandex.net an.yandex.ru banners.adfox.ru content.adfox.ru;font-src 'self' music.yandex.ru yastatic.net data:;manifest-src 'self';worker-src 'self' blob:;report-uri https://csp.yandex.net/csp?from=music&env=rtc-production&type=front&yandexuid=4604954881562757843&yandex_login=login
+X-Frame-Options: Deny
+Content-Encoding: gzip
+Strict-Transport-Security: max-age=31536000
+Transfer-Encoding: chunked
+
