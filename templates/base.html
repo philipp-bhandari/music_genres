@@ -18,8 +18,6 @@
     <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='icons/favicon-16x16.png') }}">
     <!-- CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <!-- JS -->
-    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 {% endblock %}
 
 {% block title %}Something in base.html{% endblock %}
@@ -34,11 +32,11 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/">Main Link</a>
+            <a class="navbar-brand" href="/">Simple apps</a>
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li><a href="/">Link 1</a></li>
+                <li><a href="{{ url_for('music') }}">Яндекс.Музыка</a></li>
             </ul>
         </div>
     </div>

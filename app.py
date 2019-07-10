@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, redirect, Response
 from flask_bootstrap import Bootstrap
 from flask_wtf import FlaskForm
 from wtforms import StringField
@@ -51,8 +51,14 @@ def show_name(name):
     return render_template('result.html', artists=result[0], genres=result[1])
 
 
+@app.route('/getInfo/<artist_id>', methods=('GET', 'POST'))
+def get_info(artist_id):
+    ret = parser.sub_query(parser.g_object, artist_id)
+    return Response(response=ret, status=200, mimetype="application/json")
+
+
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=8080, debug=True)  # Опция debug включает перезагрузку сервера при изменении кода.
+    app.run()
 
 
 

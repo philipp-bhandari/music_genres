@@ -4,6 +4,7 @@ from bs4 import BeautifulSoup
 import urllib.parse as url_parse
 from flask import abort
 from flask import url_for
+import json
 
 logger = logging.getLogger('grab')
 logger.addHandler(logging.StreamHandler())
@@ -26,6 +27,20 @@ class Artist:
         for genre in self.genres:
             artist_string += f'\t{genre}'
         return artist_string
+
+    def to_json_obj(self):
+        genre_name_list = []
+        for genre in self.genres:
+            genre = str(genre)
+            genre_name_list.append(genre)
+
+        return {
+            self.name: {
+                'genres': genre_name_list,
+                'href':   self.href,
+                'avatar': self.avatar
+            }
+        }
 
 
 class Genre:
@@ -78,28 +93,71 @@ def collect_genres(artist_list):
     return genres_list
 
 
+def return_soup_if_ok(response):
+    if response.code == 404:
+        abort(404)
+
+    if not 200 <= response.code <= 400:
+        raise Exception(f'response not valid: {response.code}')
+
+    result = response.unicode_body()
+    soup = BeautifulSoup(result, 'lxml')
+    return soup
+
+
 def main(g, name):
     g.go(f'{web_url}/users/{name}/artists')
     resp = g.doc
+    soup = return_soup_if_ok(resp)
 
-    if resp.code == 404:
-        abort(404)
-
-    if not 200 <= resp.code <= 400:
-        raise Exception(f'response not valid: {resp.code}')
-
-    result = resp.unicode_body()
-    soup = BeautifulSoup(result, 'lxml')
     artists_html = soup.find_all('div', 'artist')
-
     artists = create_artist_list(artists_html)
     genres_list = collect_genres(artists)
 
     return [artists, genres_list]
 
 
+def sub_query(g, artist_id):
+    g.go(f'{web_url}/artist/{artist_id}/info')
+    resp = g.doc
+
+    soup = return_soup_if_ok(resp)
+    artist_title = soup.find('div', 'd-generic-page-head__main-top')
+    name = str(artist_title.h1)
+    like = artist_title.find('div', 'page-artist__summary').getText()
+
+    artist_title = {
+        'name': name,
+        'like': like
+    }
+
+    try:
+        artist_info = soup.find('div', 'page-artist__description').getText()
+    except AttributeError:
+        artist_info = 'Нет описания исполнителя.'
+
+    g.go(f'{web_url}/artist/{artist_id}/similar')
+    resp = g.doc
+    soup = return_soup_if_ok(resp)
+
+    artists_html = soup.find_all('div', 'artist')
+    artists = create_artist_list(artists_html)
+
+    artists_for_json = []
+
+    for artist in artists:
+        artists_for_json.append(artist.to_json_obj())
+
+    json_obj = {
+        'info':    artist_info,
+        'title':   artist_title,
+        'similar': artists_for_json
+    }
+    return json.dumps(json_obj)
+
+
 if __name__ == '__main__':
-    main(g_object, 'filipp.pravda')
+    print('\nThis is part of flask app.\nGoodbye.')
 
 
 

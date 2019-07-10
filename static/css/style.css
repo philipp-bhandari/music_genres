@@ -67,3 +67,16 @@ section.artists ul {
 .artist a {
 	display: block;
 }
+
+/*similar section*/
+.similar_wrapper {
+	text-align: center;
+}
+
+.similar_wrapper img {
+	border-radius: 30px;
+}
+
+.similar_wrapper h3 {
+	padding-top: 20px;
+}
