@@ -1,1 +1,1 @@
-Grab info with Grab, parse with bs4
+get info from music.yandex.ru
