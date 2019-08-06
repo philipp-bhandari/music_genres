@@ -1,17 +1,15 @@
 import logging
-from grab import Grab
 from bs4 import BeautifulSoup
 import urllib.parse as url_parse
 from flask import abort
 from flask import url_for
 import json
+import requests
 
 logger = logging.getLogger('grab')
 logger.addHandler(logging.StreamHandler())
 logger.setLevel(logging.DEBUG)
 
-g_object = Grab()
-g_object.setup(log_dir='log')
 web_url = 'https://music.yandex.ru'
 
 
@@ -94,20 +92,19 @@ def collect_genres(artist_list):
 
 
 def return_soup_if_ok(response):
-    if response.code == 404:
+    if response.status_code == 404:
         abort(404)
 
-    if not 200 <= response.code <= 400:
+    if not 200 <= response.status_code <= 400:
         raise Exception(f'response not valid: {response.code}')
 
-    result = response.unicode_body()
+    result = response.text
     soup = BeautifulSoup(result, 'lxml')
     return soup
 
 
-def main(g, name):
-    g.go(f'{web_url}/users/{name}/artists')
-    resp = g.doc
+def main(name):
+    resp = requests.get(f'{web_url}/users/{name}/artists')
     soup = return_soup_if_ok(resp)
 
     artists_html = soup.find_all('div', 'artist')
@@ -117,11 +114,10 @@ def main(g, name):
     return [artists, genres_list]
 
 
-def sub_query(g, artist_id):
-    g.go(f'{web_url}/artist/{artist_id}/info')
-    resp = g.doc
-
+def sub_query(artist_id):
+    resp = requests.get(f'{web_url}/artist/{artist_id}/info')
     soup = return_soup_if_ok(resp)
+
     artist_title = soup.find('div', 'd-generic-page-head__main-top')
     name = str(artist_title.h1)
     like = artist_title.find('div', 'page-artist__summary').getText()
@@ -136,8 +132,7 @@ def sub_query(g, artist_id):
     except AttributeError:
         artist_info = 'Нет описания исполнителя.'
 
-    g.go(f'{web_url}/artist/{artist_id}/similar')
-    resp = g.doc
+    resp = requests.get(f'{web_url}/artist/{artist_id}/similar')
     soup = return_soup_if_ok(resp)
 
     artists_html = soup.find_all('div', 'artist')
@@ -158,35 +153,3 @@ def sub_query(g, artist_id):
 
 if __name__ == '__main__':
     print('\nThis is part of flask app.\nGoodbye.')
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

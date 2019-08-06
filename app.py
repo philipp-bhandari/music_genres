@@ -47,13 +47,14 @@ def show():
 
 @app.route('/show/<name>', methods=('GET', 'POST'))
 def show_name(name):
-    result = parser.main(parser.g_object, name)
+    result = parser.main(name)
     return render_template('result.html', artists=result[0], genres=result[1])
 
 
 @app.route('/getInfo/<artist_id>', methods=('GET', 'POST'))
 def get_info(artist_id):
-    ret = parser.sub_query(parser.g_object, artist_id)
+    print(artist_id)
+    ret = parser.sub_query(artist_id)
     return Response(response=ret, status=200, mimetype="application/json")
 
 
